@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bốc hình của tui!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #203354;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Tránh thanh cuộn khi bài phóng to */
+        }
+
+        h1 {
+            margin-bottom: 40px;
+        }
+
+        .card-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .card {
+            width: 200px;
+            height: 300px;
+            perspective: 1000px;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            /* Đã xóa hiệu ứng hover cũ đi để nhường chỗ cho JS xịn hơn hoạt động */
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); /* Chỉnh lại nhịp lật bài cho mượt hơn */
+            transform-style: preserve-3d;
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Đổ bóng sâu hơn để nhìn 3D hơn */
+        }
+
+        .card-front {
+            background-color: #16213e;
+            background-image: url('/Users/conbodenthui/Downloads/YÊN/IMG_8014_Original.HEIC');
+            background-size: cover;
+            background-position: center;
+            border: 2px solid #e94560;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            background-color: #fff;
+            background-size: cover;
+            background-position: center;
+            border: 2px solid #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>✨ Em bé hãy chọn 1 lá diiii ✨</h1>
+
+    <div class="card-container">
+        <div class="card" data-tilt data-tilt-scale="1.1" data-tilt-glare data-tilt-max-glare="0.5" onclick="flipCard(this)">
+            <div class="card-inner">
+                <div class="card-front"></div>
+                <div class="card-back" style="background-image: url('/Users/conbodenthui/Downloads/YÊN/1.png');"></div>
+            </div>
+        </div>
+
+        <div class="card" data-tilt data-tilt-scale="1.1" data-tilt-glare data-tilt-max-glare="0.5" onclick="flipCard(this)">
+            <div class="card-inner">
+                <div class="card-front"></div>
+                <div class="card-back" style="background-image: url('/Users/conbodenthui/Downloads/YÊN/IMG_2944.JPG');"></div>
+            </div>
+        </div>
+    
+        <div class="card" data-tilt data-tilt-scale="1.1" data-tilt-glare data-tilt-max-glare="0.5" onclick="flipCard(this)">
+            <div class="card-inner">
+                <div class="card-front"></div>
+                <div class="card-back" style="background-image: url('/Users/conbodenthui/Downloads/YÊN/2.png');"></div>
+            </div>
+        </div>
+
+        <div class="card" data-tilt data-tilt-scale="1.1" data-tilt-glare data-tilt-max-glare="0.5" onclick="flipCard(this)">
+            <div class="card-inner">
+                <div class="card-front"></div>
+                <div class="card-back" style="background-image: url('/Users/conbodenthui/Downloads/YÊN/IMG_4244.JPG');"></div>
+            </div>
+        </div>
+
+        <div class="card" data-tilt data-tilt-scale="1.1" data-tilt-glare data-tilt-max-glare="0.5" onclick="flipCard(this)">
+            <div class="card-inner">
+                <div class="card-front"></div>
+                <div class="card-back" style="background-image: url('/Users/conbodenthui/Downloads/YÊN/3.png');"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    
+    <script>
+        function flipCard(cardElement) {
+            // Khi lật bài thì tạm tắt hiệu ứng nghiêng để lật cho mượt
+            cardElement.vanillaTilt.destroy(); 
+            cardElement.classList.toggle('flipped');
+            
+            // Chờ lật xong (0.6s) thì bật hiệu ứng nghiêng lại
+            setTimeout(() => {
+                VanillaTilt.init(cardElement, {
+                    scale: 1.1,
+                    glare: true,
+                    "max-glare": 0.5
+                });
+            }, 600);
+        }
+    </script>
+
+</body>
+</html>
